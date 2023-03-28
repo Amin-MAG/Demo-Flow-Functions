@@ -19,8 +19,8 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			LastName:    "Ghasvari",
 			PhoneNumber: "09336205449",
 			CurrentLocation: Point{
-				Lat: 11.11,
-				Lon: 11.22,
+				Lat: 10.10,
+				Lon: 40.40,
 			},
 		}
 		break
@@ -41,8 +41,8 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			LastName:    "Golestane",
 			PhoneNumber: "09197846219",
 			CurrentLocation: Point{
-				Lat: 33.11,
-				Lon: 33.22,
+				Lat: 40.40,
+				Lon: 10.10,
 			},
 		}
 		break
