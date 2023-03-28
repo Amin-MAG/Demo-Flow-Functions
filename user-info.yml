@@ -1,10 +1,10 @@
 version: 1.0
 provider:
   name: openfaas
-  gateway: http://127.0.0.1:8080
+  gateway: https://gateway-openfaas.aminmag.ir
 functions:
   user-info:
     lang: golang-flow
     handler: ./user-info
-    image: user-info:latest
+    image: ragnacode/user-info:0.1.2
 

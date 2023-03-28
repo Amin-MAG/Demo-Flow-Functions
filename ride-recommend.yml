@@ -1,10 +1,10 @@
 version: 1.0
 provider:
   name: openfaas
-  gateway: http://127.0.0.1:8080
+  gateway: https://gateway-openfaas.aminmag.ir
 functions:
   ride-recommend:
     lang: golang-flow
     handler: ./ride-recommend
-    image: ride-recommend:latest
+    image: ragnacode/ride-recommend:0.1.2
 
