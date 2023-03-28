@@ -21,17 +21,18 @@ type Ride struct {
 }
 
 type UserInfo struct {
-	ID              uint   `json:"id"`
-	FirstName       string `json:"first_name"`
-	LastName        string `json:"last_name"`
-	PhoneNumber     string `json:"phone_number"`
-	CurrentLocation Point  `json:"current_location"`
+	ID                     uint     `json:"id"`
+	FirstName              string   `json:"first_name"`
+	LastName               string   `json:"last_name"`
+	PhoneNumber            string   `json:"phone_number"`
+	CurrentAddressLocation Point    `json:"current_address_location"`
+	Addresses              []string `json:"addresses"`
 }
 
 type Recommendation struct {
 	Type           string `json:"type"`
 	Recommendation *Point `json:"recommendation"`
-	BannerText     string `json:"bannerText"`
+	BannerText     string `json:"banner_text"`
 }
 
 // Input is the argument of your flow function

@@ -2,6 +2,7 @@ package function
 
 import (
 	"errors"
+	"math/rand"
 	"time"
 )
 
@@ -9,6 +10,9 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 	if request.Args.UserID == nil {
 		return nil, errors.New("user_id is required")
 	}
+
+	// Add a sleep time for simulating database connection
+	time.Sleep(time.Duration(rand.Intn(10)+50) * time.Millisecond)
 
 	lastRide := Ride{
 		PassengerID: *request.Args.UserID,
