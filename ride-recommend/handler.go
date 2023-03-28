@@ -15,12 +15,12 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 	}
 
 	var lastRide Ride
-	lastRideResponse, ok := request.Children["last_ride"]
+	lastRideResponse, ok := request.Children["last_ride_of_passenger"]
 	if !ok {
-		return nil, errors.New("response of last_ride is required to process")
+		return nil, errors.New("response of last_ride_of_passenger is required to process")
 	}
 	if lastRideResponse == nil {
-		return nil, errors.New("the response of last_ride is nil")
+		return nil, errors.New("the response of last_ride_of_passenger is nil")
 	}
 	jsonStr, err := json.Marshal(lastRideResponse.Data)
 	if err != nil {
@@ -33,12 +33,12 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 	fmt.Printf("%+v\n", lastRide)
 
 	var userInfo UserInfo
-	userInfoResponse, ok := request.Children["user_info"]
+	userInfoResponse, ok := request.Children["user_info_of_passenger"]
 	if !ok {
-		return nil, errors.New("response of user_info is required to process")
+		return nil, errors.New("response of user_info_of_passenger is required to process")
 	}
 	if userInfoResponse == nil {
-		return nil, errors.New("the response of user_info is nil")
+		return nil, errors.New("the response of user_info_of_passenger is nil")
 	}
 	jsonStr, err = json.Marshal(userInfoResponse.Data)
 	if err != nil {
@@ -58,7 +58,7 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			Recommendation: &lastRide.Destination,
 			BannerText:     fmt.Sprintf("Dear %s, Here is your repeat recommendation.", userInfo.FirstName),
 		}
-		return createFlowOutput("last_ride", recommendation)
+		return createFlowOutput("ride_recommend", recommendation)
 	}
 
 	// Reverse recommendation
@@ -68,7 +68,7 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			Recommendation: &lastRide.Origin,
 			BannerText:     fmt.Sprintf("Dear %s, Here is your reverse recommendation.", userInfo.FirstName),
 		}
-		return createFlowOutput("last_ride", recommendation)
+		return createFlowOutput("ride_recommend", recommendation)
 	}
 
 	// No recommendation
