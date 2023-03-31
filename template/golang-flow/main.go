@@ -41,7 +41,6 @@ func main() {
 
 func handle(w http.ResponseWriter, r *http.Request) {
 	var input function.FlowInput
-
 	if r.Body != nil {
 		defer r.Body.Close()
 
@@ -50,20 +49,16 @@ func handle(w http.ResponseWriter, r *http.Request) {
 		fmt.Printf("%+v\n", input)
 	}
 
-	flowOutput, err := function.ExecFlow(input)
+	outputData, err := function.ExecFlow(input)
 	if err != nil {
 		w.WriteHeader(http.StatusBadRequest)
 		_, _ = w.Write([]byte(fmt.Sprintf("error: %s", err.Error())))
 		return
 	}
 
-	err = json.NewEncoder(w).Encode(flowOutput.Data)
-	if err != nil {
-		w.WriteHeader(http.StatusBadRequest)
-		_, _ = w.Write([]byte(fmt.Sprintf("error: %s", err.Error())))
-		return
-	}
 	w.WriteHeader(http.StatusOK)
+	w.Header().Set("Content-Type", "application/json")
+	_, _ = w.Write(outputData)
 	return
 }
 

@@ -6,5 +6,5 @@ functions:
   ride-recommend:
     lang: golang-flow
     handler: ./ride-recommend
-    image: ragnacode/ride-recommend:0.1.2
+    image: ragnacode/ride-recommend:0.2.0
 

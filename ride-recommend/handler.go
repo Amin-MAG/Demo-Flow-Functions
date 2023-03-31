@@ -6,7 +6,7 @@ import (
 	"fmt"
 )
 
-func ExecFlow(request FlowInput) (*FlowOutput, error) {
+func ExecFlow(request FlowInput) ([]byte, error) {
 	if request.Args.UserID == nil {
 		return nil, errors.New("user_id is required")
 	}
@@ -16,17 +16,10 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 
 	var lastRide Ride
 	lastRideResponse, ok := request.Children["last_ride_of_passenger"]
-	if !ok {
+	if !ok || lastRideResponse == nil {
 		return nil, errors.New("response of last_ride_of_passenger is required to process")
 	}
-	if lastRideResponse == nil {
-		return nil, errors.New("the response of last_ride_of_passenger is nil")
-	}
-	jsonStr, err := json.Marshal(lastRideResponse.Data)
-	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error in marshalling: %s", err))
-	}
-	err = json.Unmarshal(jsonStr, &lastRide)
+	err := json.Unmarshal(lastRideResponse.Data, &lastRide)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("error in unmarshalling: %s", err))
 	}
@@ -34,17 +27,10 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 
 	var userInfo UserInfo
 	userInfoResponse, ok := request.Children["user_info_of_passenger"]
-	if !ok {
+	if !ok || userInfoResponse == nil {
 		return nil, errors.New("response of user_info_of_passenger is required to process")
 	}
-	if userInfoResponse == nil {
-		return nil, errors.New("the response of user_info_of_passenger is nil")
-	}
-	jsonStr, err = json.Marshal(userInfoResponse.Data)
-	if err != nil {
-		return nil, errors.New(fmt.Sprintf("error in marshalling: %s", err))
-	}
-	err = json.Unmarshal(jsonStr, &userInfo)
+	err = json.Unmarshal(userInfoResponse.Data, &userInfo)
 	if err != nil {
 		return nil, errors.New(fmt.Sprintf("error in unmarshalling: %s", err))
 	}
@@ -58,7 +44,7 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			Recommendation: &lastRide.Destination,
 			BannerText:     fmt.Sprintf("Dear %s, Here is your repeat recommendation.", userInfo.FirstName),
 		}
-		return createFlowOutput("ride_recommend", recommendation)
+		return json.Marshal(recommendation)
 	}
 
 	// Reverse recommendation
@@ -68,7 +54,7 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 			Recommendation: &lastRide.Origin,
 			BannerText:     fmt.Sprintf("Dear %s, Here is your reverse recommendation.", userInfo.FirstName),
 		}
-		return createFlowOutput("ride_recommend", recommendation)
+		return json.Marshal(recommendation)
 	}
 
 	// No recommendation
@@ -77,5 +63,5 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 		BannerText: fmt.Sprintf("Dear %s, There is no recommendation.", userInfo.FirstName),
 	}
 
-	return createFlowOutput("ride_recommend", recommendation)
+	return json.Marshal(recommendation)
 }

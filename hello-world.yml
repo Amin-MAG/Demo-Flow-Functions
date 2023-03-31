@@ -6,5 +6,4 @@ functions:
   hello-world:
     lang: golang-flow
     handler: ./hello-world
-    image: hello-world:latest
-
+    image: hello-world:0.4.0

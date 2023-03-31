@@ -1,12 +1,13 @@
 package function
 
 import (
+	"encoding/json"
 	"errors"
 	"math/rand"
 	"time"
 )
 
-func ExecFlow(request FlowInput) (*FlowOutput, error) {
+func ExecFlow(request FlowInput) ([]byte, error) {
 	if request.Args.UserID == nil {
 		return nil, errors.New("user_id is required")
 	}
@@ -70,5 +71,5 @@ func ExecFlow(request FlowInput) (*FlowOutput, error) {
 		return nil, errors.New("can not find the user")
 	}
 
-	return createFlowOutput("user_info", userInfo)
+	return json.Marshal(userInfo)
 }

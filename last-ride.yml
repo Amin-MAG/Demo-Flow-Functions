@@ -6,5 +6,5 @@ functions:
   last-ride:
     lang: golang-flow
     handler: ./last-ride
-    image: ragnacode/last-ride:0.1.1
+    image: ragnacode/last-ride:0.2.0
 

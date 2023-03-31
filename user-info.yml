@@ -6,5 +6,5 @@ functions:
   user-info:
     lang: golang-flow
     handler: ./user-info
-    image: ragnacode/user-info:0.1.2
+    image: ragnacode/user-info:0.2.0
 

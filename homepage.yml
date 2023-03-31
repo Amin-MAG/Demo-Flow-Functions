@@ -3,8 +3,8 @@ provider:
   name: openfaas
   gateway: https://gateway-openfaas.aminmag.ir
 functions:
-  ride-recommend:
+  homepage:
     lang: golang-flow
     handler: ./homepage
-    image: ragnacode/homepage:0.1.0
+    image: ragnacode/homepage:0.2.0
 
