@@ -13,7 +13,7 @@ func ExecFlow(request FlowInput) ([]byte, error) {
 	}
 
 	// Add a sleep time for simulating database connection
-	time.Sleep(time.Duration(rand.Intn(10)+50) * time.Millisecond)
+	time.Sleep(time.Duration(rand.Intn(10)+5) * time.Millisecond)
 
 	userInfo := UserInfo{
 		ID: *request.Args.UserID,

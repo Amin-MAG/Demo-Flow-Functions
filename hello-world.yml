@@ -6,4 +6,4 @@ functions:
   hello-world:
     lang: golang-flow
     handler: ./hello-world
-    image: hello-world:0.4.0
+    image: ragnacode/hello-world:0.4.0
