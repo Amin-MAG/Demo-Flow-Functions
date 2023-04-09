@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: https://gateway-openfaas.aminmag.ir
+functions:
+  friends:
+    lang: golang-flow
+    handler: ./friends
+    image: ragnacode/friends:0.1.0
+

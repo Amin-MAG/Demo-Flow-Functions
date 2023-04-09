@@ -1,0 +1,10 @@
+version: 1.0
+provider:
+  name: openfaas
+  gateway: https://gateway-openfaas.aminmag.ir
+functions:
+  ride-history:
+    lang: golang-flow
+    handler: ./ride-history
+    image: ragnacode/ride-history:0.1.0
+
